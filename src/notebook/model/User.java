@@ -53,4 +53,7 @@ public class User {
     public String toString() {
         return String.format("Идентафикатор: %s\nИмя: %s,\nФамилия: %s,\nТелефон: %s", id, firstName, lastName, phone);
     }
+    public String toStringInLine() {
+        return String.format("Идентафикатор: %s\tИмя: %s; Фамилия: %s; Телефон: %s", id, firstName, lastName, phone);
+    }
 }

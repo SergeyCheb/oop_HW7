@@ -1,13 +1,11 @@
 package notebook.view;
 
 import notebook.controller.UserController;
+import notebook.logger.Logger;
 import notebook.model.User;
 import notebook.util.Commands;
-import notebook.logger.Logger;
 
-import java.util.List;
 import java.util.Scanner;
-import java.util.function.Consumer;
 
 
 public class UserView {
@@ -17,10 +15,12 @@ public class UserView {
         this.userController = userController;
     }
 
-    public void run(){
+    public void run() {
         Commands com;
         //для логирования:
-        Logger log = new Logger("log.txt");
+        // для ДЗ_5 использовался файл log.txt
+        // для ДЗ_7 используется файл "fresh_log.txt"
+        Logger log = new Logger("fresh_log.txt");
         while (true) {
             String command = prompt("Введите команду: ");
             com = Commands.valueOf(command);
@@ -70,6 +70,20 @@ public class UserView {
                         System.out.println("\tзапись\n" + userToDel + "\n\tбудет удалена");
                         userController.getRepository().delete(idToDel);
                         log.addToLogFile("удален пользователь с ID:" + idToDel);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case LIST:
+                    // вывод всех записей
+                    // добавлено в ДЗ_7
+                    try {
+                        userController
+                                .getRepository()
+                                .findAll()
+                                .stream()
+                                .forEach(user -> System.out.println(user.toStringInLine()));
+                        log.addToLogFile("отображен весь список пользователей");
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
